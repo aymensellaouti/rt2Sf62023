@@ -12,7 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class FirstController extends AbstractController
 {
     // Controller
-    #[Route('/first/{section}', name: 'app_first')]
+    #[Route(
+        '/first/{section<[0-1]?\d{1,2}>?145}',
+        name: 'app_first',
+//        requirements: ['section' => '[0-1]?\d{1,2}']
+//        defaults: ['section' => 'RT2G3']
+    )]
     public function index($section, Request $request, SessionInterface $session): Response
     {
 //        $session = $request->getSession();
@@ -32,5 +37,10 @@ class FirstController extends AbstractController
             'controller_name' => $section,
             'message' => $message
         ]);
+    }
+
+    #[Route('hello')]
+    public function hello() {
+        return new Response('<h1>Hello</h1>');
     }
 }
